@@ -11,8 +11,10 @@
         <div class="user-profile">
             <img src="{{ user_profile.images[0].url }}" alt="{{ user_profile.display_name }}">
             <p>{{ user_profile.display_name }}</p>
-            <button onclick="shareTopTracks()">Share Top Tracks</button>
-            <button onclick="shareTopArtists()">Share Top Artists</button>
+            <div class="shares">
+                <button onclick="shareTopTracks()">Share Top Tracks</button>
+                <button onclick="shareTopArtists()">Share Top Artists</button>
+            </div>
         </div>
         <h1>{{ user_profile.display_name.split(' ')[0] }}'s Top Artists and Tracks in Spotify</h1>
     {% else %}
