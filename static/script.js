@@ -4,7 +4,7 @@ function showSection(section) {
 }
 
 function shareTrack(trackName, artistName, albumImage, albumName, spotifyUrl, trackNumber) {
-    const webhookUrl = 'https://mseufeduph.webhook.office.com/webhookb2/8ef714f6-81de-4b42-ad2e-c262d5ce04d1@ddedb3cc-596d-482b-8e8c-6cc149a7a7b7/IncomingWebhook/9ef0b875219140eb8135437505a9d31c/e0510d66-17c3-43f4-a3ef-0cf6a6fba189/V24duT1GXj0kuDCkgbXHPSG6tCe2ZunOnaM30gWrZrYuo1';
+    const webhookUrl = 'https://mseufeduph.webhook.office.com/webhookb2/8ef714f6-81de-4b42-ad2e-c262d5ce04d1@ddedb3cc-596d-482b-8e8c-6cc149a7a7b7/IncomingWebhook/9ef0b875219140eb8135437505a9d31c/e0510d66-17c3-43f4-a3ef-0cf6a6fba189/V24duT1GXj0kuDCkgbXHPSG6tCe2ZunOnaM30gWrZrYuo1'; 
 
     const payload = {
         "@type": "MessageCard",
@@ -30,6 +30,16 @@ function shareTrack(trackName, artistName, albumImage, albumName, spotifyUrl, tr
                         "uri": spotifyUrl
                     }
                 ]
+            },
+            {
+                "@type": "OpenUri",
+                "name": "View Top Tracks",
+                "targets": [
+                    {
+                        "os": "default",
+                        "uri": window.location.href
+                    }
+                ]
             }
         ]
     };
@@ -52,7 +62,7 @@ function shareTrack(trackName, artistName, albumImage, albumName, spotifyUrl, tr
 }
 
 function shareTopTracks() {
-    const webhookUrl = 'https://mseufeduph.webhook.office.com/webhookb2/8ef714f6-81de-4b42-ad2e-c262d5ce04d1@ddedb3cc-596d-482b-8e8c-6cc149a7a7b7/IncomingWebhook/9ef0b875219140eb8135437505a9d31c/e0510d66-17c3-43f4-a3ef-0cf6a6fba189/V24duT1GXj0kuDCkgbXHPSG6tCe2ZunOnaM30gWrZrYuo1';
+    const webhookUrl = 'https://mseufeduph.webhook.office.com/webhookb2/8ef714f6-81de-4b42-ad2e-c262d5ce04d1@ddedb3cc-596d-482b-8e8c-6cc149a7a7b7/IncomingWebhook/9ef0b875219140eb8135437505a9d31c/e0510d66-17c3-43f4-a3ef-0cf6a6fba189/V24duT1GXj0kuDCkgbXHPSG6tCe2ZunOnaM30gWrZrYuo1'; 
 
     const topTracks = Array.from(document.querySelectorAll('#tracks-section .item')).map(item => {
         const trackName = item.querySelector('p').textContent.split(' by ')[0].split('. ')[1];
@@ -111,6 +121,13 @@ function shareTopTracks() {
                                 }
                             ]
                         }))
+                    ],
+                    "actions": [
+                        {
+                            "type": "Action.OpenUrl",
+                            "title": "View Top Tracks",
+                            "url": window.location.href
+                        }
                     ]
                 }
             }
@@ -135,7 +152,7 @@ function shareTopTracks() {
 }
 
 function shareTopArtists() {
-    const webhookUrl = 'https://mseufeduph.webhook.office.com/webhookb2/8ef714f6-81de-4b42-ad2e-c262d5ce04d1@ddedb3cc-596d-482b-8e8c-6cc149a7a7b7/IncomingWebhook/9ef0b875219140eb8135437505a9d31c/e0510d66-17c3-43f4-a3ef-0cf6a6fba189/V24duT1GXj0kuDCkgbXHPSG6tCe2ZunOnaM30gWrZrYuo1';
+    const webhookUrl = 'https://mseufeduph.webhook.office.com/webhookb2/8ef714f6-81de-4b42-ad2e-c262d5ce04d1@ddedb3cc-596d-482b-8e8c-6cc149a7a7b7/IncomingWebhook/9ef0b875219140eb8135437505a9d31c/e0510d66-17c3-43f4-a3ef-0cf6a6fba189/V24duT1GXj0kuDCkgbXHPSG6tCe2ZunOnaM30gWrZrYuo1'; 
 
     const topArtists = Array.from(document.querySelectorAll('#artists-section .item')).map(item => {
         const artistName = item.querySelector('p').textContent.split('. ')[1];
@@ -176,6 +193,13 @@ function shareTopArtists() {
                                 }
                             ]
                         }))
+                    ],
+                    "actions": [
+                        {
+                            "type": "Action.OpenUrl",
+                            "title": "View Top Artists",
+                            "url": window.location.href
+                        }
                     ]
                 }
             }
