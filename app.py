@@ -8,7 +8,7 @@ app.secret_key = os.urandom(24)
 CLIENT_ID = '040864a3c4934163afffb8453329de95'  # Replace with your client ID
 CLIENT_SECRET = 'd273451a21784de5a03512c9f75938be'  # Replace with your client secret
 REDIRECT_URI = 'http://127.0.0.1:5000/callback'
-SCOPE = 'user-top-read'
+SCOPE = 'user-top-read user-read-private'
 
 @app.route('/')
 def home():
@@ -17,15 +17,17 @@ def home():
         headers = {
             'Authorization': f'Bearer {access_token}'
         }
-        top_artists_response = requests.get('https://api.spotify.com/v1/me/top/artists', headers=headers)
-        top_tracks_response = requests.get('https://api.spotify.com/v1/me/top/tracks', headers=headers)
+        user_profile_response = requests.get('https://api.spotify.com/v1/me', headers=headers)
+        top_artists_response = requests.get('https://api.spotify.com/v1/me/top/artists?time_range=long_term', headers=headers)
+        top_tracks_response = requests.get('https://api.spotify.com/v1/me/top/tracks?time_range=long_term', headers=headers)
 
+        user_profile = user_profile_response.json()
         top_artists = top_artists_response.json().get('items', [])
         top_tracks = top_tracks_response.json().get('items', [])
 
-        return render_template('index.html', top_artists=top_artists, top_tracks=top_tracks)
+        return render_template('index.html', user_profile=user_profile, top_artists=top_artists, top_tracks=top_tracks)
     else:
-        return render_template('index.html', top_artists=[], top_tracks=[])
+        return render_template('index.html', user_profile=None, top_artists=[], top_tracks=[])
 
 @app.route('/login')
 def login():

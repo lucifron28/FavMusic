@@ -7,11 +7,25 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Spotify Top Artists and Tracks</h1>
+    {% if user_profile %}
+        <div class="user-profile">
+            <img src="{{ user_profile.images[0].url }}" alt="{{ user_profile.display_name }}">
+            <p>{{ user_profile.display_name }}</p>
+            <button onclick="shareTopTracks()">Share Top Tracks</button>
+            <button onclick="shareTopArtists()">Share Top Artists</button>
+        </div>
+        <h1>{{ user_profile.display_name.split(' ')[0] }}'s Top Artists and Tracks in Spotify</h1>
+    {% else %}
+        <h1>Spotify Top Artists and Tracks</h1>
+    {% endif %}
     {% if not top_artists and not top_tracks %}
         <button id="login-button" onclick="window.location.href='{{ url_for('login') }}'">Login with Spotify</button>
     {% else %}
-        <div>
+        <nav>
+            <button onclick="showSection('artists')">Top Artists</button>
+            <button onclick="showSection('tracks')">Top Tracks</button>
+        </nav>
+        <div id="artists-section">
             <h2>Top Artists</h2>
             <div class="flex-container">
                 {% for artist in top_artists %}
@@ -22,14 +36,14 @@
                 {% endfor %}
             </div>
         </div>
-        <div>
+        <div id="tracks-section" style="display: none;">
             <h2>Top Tracks</h2>
             <div class="flex-container">
                 {% for track in top_tracks %}
                     <div class="item">
                         <img src="{{ track.album.images[0].url }}" alt="{{ track.name }}">
                         <p>{{ loop.index }}. {{ track.name }} by {{ track.artists[0].name }}</p>
-                        <button onclick="shareTrack('{{ track.name }}', '{{ track.artists[0].name }}', '{{ track.album.images[0].url }}', '{{ track.album.name }}', '{{ track.external_urls.spotify }}')">Share</button>
+                        <button onclick="shareTrack('{{ track.name|replace("'", "\\'") }}', '{{ track.artists[0].name|replace("'", "\\'") }}', '{{ track.album.images[0].url }}', '{{ track.album.name|replace("'", "\\'") }}', '{{ track.external_urls.spotify }}', '{{ loop.index }}')">Share</button>
                     </div>
                 {% endfor %}
             </div>
