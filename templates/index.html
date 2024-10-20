@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Top Artists and Tracks</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Spotify Top Artists and Tracks</h1>
+    {% if not top_artists and not top_tracks %}
+        <button id="login-button" onclick="window.location.href='{{ url_for('login') }}'">Login with Spotify</button>
+    {% else %}
+        <div>
+            <h2>Top Artists</h2>
+            <div class="flex-container">
+                {% for artist in top_artists %}
+                    <div class="item">
+                        <img src="{{ artist.images[0].url }}" alt="{{ artist.name }}">
+                        <p>{{ loop.index }}. {{ artist.name }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div>
+            <h2>Top Tracks</h2>
+            <div class="flex-container">
+                {% for track in top_tracks %}
+                    <div class="item">
+                        <img src="{{ track.album.images[0].url }}" alt="{{ track.name }}">
+                        <p>{{ loop.index }}. {{ track.name }} by {{ track.artists[0].name }}</p>
+                        <button onclick="shareTrack('{{ track.name }}', '{{ track.artists[0].name }}', '{{ track.album.images[0].url }}', '{{ track.album.name }}', '{{ track.external_urls.spotify }}')">Share</button>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
