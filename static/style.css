@@ -77,12 +77,15 @@ nav {
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: black;
 }
 
 .item:hover {
     border-radius: 10px;
     cursor: pointer;
     transform: scale(1.1);
+    background-color: #00000079;
+    color: white;
 }
 
 .item img {
@@ -95,7 +98,6 @@ nav {
 .item p {
     word-wrap: break-word; 
     margin-top: 10px;
-    color: white;
 }
 
 .item button {
