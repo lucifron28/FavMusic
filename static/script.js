@@ -4,7 +4,7 @@ function showSection(section) {
 }
 
 function shareTrack(trackName, artistName, albumImage, albumName, spotifyUrl, trackNumber) {
-    const webhookUrl = 'https://mseufeduph.webhook.office.com/webhookb2/8ef714f6-81de-4b42-ad2e-c262d5ce04d1@ddedb3cc-596d-482b-8e8c-6cc149a7a7b7/IncomingWebhook/8f977a5c59f54ac197161918d120d1e1/e0510d66-17c3-43f4-a3ef-0cf6a6fba189/V2f7ueHkdmaRCsLqpsJyNCR7VebElKJVJLZrfVq3J7RCY1';
+    const webhookUrl = 'https://mseufeduph.webhook.office.com/webhookb2/8ef714f6-81de-4b42-ad2e-c262d5ce04d1@ddedb3cc-596d-482b-8e8c-6cc149a7a7b7/IncomingWebhook/64c653deb51a4782bf4aa0fb55c94ff3/e0510d66-17c3-43f4-a3ef-0cf6a6fba189/V2adT6HO57ExR_SHv9u3JMpcNQrqIrUA9Vs_3kcNCQIMY1';
 
     const payload = {
         type: "message",
@@ -72,7 +72,7 @@ function shareTrack(trackName, artistName, albumImage, albumName, spotifyUrl, tr
 }
 
 function shareTopTracks() {
-    const webhookUrl = 'https://mseufeduph.webhook.office.com/webhookb2/8ef714f6-81de-4b42-ad2e-c262d5ce04d1@ddedb3cc-596d-482b-8e8c-6cc149a7a7b7/IncomingWebhook/8f977a5c59f54ac197161918d120d1e1/e0510d66-17c3-43f4-a3ef-0cf6a6fba189/V2f7ueHkdmaRCsLqpsJyNCR7VebElKJVJLZrfVq3J7RCY1'; 
+    const webhookUrl = 'https://mseufeduph.webhook.office.com/webhookb2/8ef714f6-81de-4b42-ad2e-c262d5ce04d1@ddedb3cc-596d-482b-8e8c-6cc149a7a7b7/IncomingWebhook/64c653deb51a4782bf4aa0fb55c94ff3/e0510d66-17c3-43f4-a3ef-0cf6a6fba189/V2adT6HO57ExR_SHv9u3JMpcNQrqIrUA9Vs_3kcNCQIMY1'; 
 
     const topTracks = Array.from(document.querySelectorAll('#tracks-section .item')).map(item => {
         const trackName = item.querySelector('p').textContent.split(' by ')[0].split('. ')[1];
@@ -162,7 +162,7 @@ function shareTopTracks() {
 }
 
 function shareTopArtists() {
-    const webhookUrl = 'https://mseufeduph.webhook.office.com/webhookb2/8ef714f6-81de-4b42-ad2e-c262d5ce04d1@ddedb3cc-596d-482b-8e8c-6cc149a7a7b7/IncomingWebhook/8f977a5c59f54ac197161918d120d1e1/e0510d66-17c3-43f4-a3ef-0cf6a6fba189/V2f7ueHkdmaRCsLqpsJyNCR7VebElKJVJLZrfVq3J7RCY1'; 
+    const webhookUrl = 'https://mseufeduph.webhook.office.com/webhookb2/8ef714f6-81de-4b42-ad2e-c262d5ce04d1@ddedb3cc-596d-482b-8e8c-6cc149a7a7b7/IncomingWebhook/64c653deb51a4782bf4aa0fb55c94ff3/e0510d66-17c3-43f4-a3ef-0cf6a6fba189/V2adT6HO57ExR_SHv9u3JMpcNQrqIrUA9Vs_3kcNCQIMY1'; 
 
     const topArtists = Array.from(document.querySelectorAll('#artists-section .item')).map(item => {
         const artistName = item.querySelector('p').textContent.split('. ')[1];
