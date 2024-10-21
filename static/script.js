@@ -4,45 +4,54 @@ function showSection(section) {
 }
 
 function shareTrack(trackName, artistName, albumImage, albumName, spotifyUrl, trackNumber) {
-    const webhookUrl = 'https://mseufeduph.webhook.office.com/webhookb2/8ef714f6-81de-4b42-ad2e-c262d5ce04d1@ddedb3cc-596d-482b-8e8c-6cc149a7a7b7/IncomingWebhook/9ef0b875219140eb8135437505a9d31c/e0510d66-17c3-43f4-a3ef-0cf6a6fba189/V24duT1GXj0kuDCkgbXHPSG6tCe2ZunOnaM30gWrZrYuo1'; 
+    const webhookUrl = 'https://mseufeduph.webhook.office.com/webhookb2/8ef714f6-81de-4b42-ad2e-c262d5ce04d1@ddedb3cc-596d-482b-8e8c-6cc149a7a7b7/IncomingWebhook/9ef0b875219140eb8135437505a9d31c/e0510d66-17c3-43f4-a3ef-0cf6a6fba189/V24duT1GXj0kuDCkgbXHPSG6tCe2ZunOnaM30gWrZrYuo1';
 
     const payload = {
-        "@type": "MessageCard",
-        "@context": "https://schema.org/extensions",
-        "summary": "Spotify Track",
-        "themeColor": "1DB954",
-        "title": `Track ${trackNumber}: ${trackName} - ${artistName}`,
-        "text": "Click the button below to listen to this track on Spotify.",
-        "sections": [
+        type: "message",
+        attachments: [
             {
-                "activityTitle": `🎵 ${artistName} - *${trackName}*`,
-                "activityImage": albumImage,
-                "text": `From the album *${albumName}*`
-            }
-        ],
-        "potentialAction": [
-            {
-                "@type": "OpenUri",
-                "name": "Listen on Spotify",
-                "targets": [
-                    {
-                        "os": "default",
-                        "uri": spotifyUrl
-                    }
-                ]
-            },
-            {
-                "@type": "OpenUri",
-                "name": "View Top Tracks",
-                "targets": [
-                    {
-                        "os": "default",
-                        "uri": window.location.href
-                    }
-                ]
+                contentType: "application/vnd.microsoft.card.adaptive",
+                contentUrl: null,
+                content: {
+                    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                    "type": "AdaptiveCard",
+                    "version": "1.3",
+                    "body": [
+                        {
+                            "type": "TextBlock",
+                            "text": `Track ${trackNumber}: ${trackName} - ${artistName}`,
+                            "weight": "Bolder",
+                            "size": "Medium"
+                        },
+                        {
+                            "type": "Image",
+                            "url": albumImage,
+                            "size": "Large"
+                        },
+                        {
+                            "type": "TextBlock",
+                            "text": `From the album ${albumName}`,
+                            "wrap": true
+                        }
+                    ],
+                    "actions": [
+                        {
+                            "type": "Action.OpenUrl",
+                            "title": "Listen on Spotify",
+                            "url": spotifyUrl
+                        },
+                        {
+                            "type": "Action.OpenUrl",
+                            "title": "View Top Tracks",
+                            "url": window.location.href
+                        }
+                    ]
+                }
             }
         ]
     };
+
+    console.log('Sending payload:', payload); // Debugging statement
 
     fetch(webhookUrl, {
         method: 'POST',
@@ -52,7 +61,8 @@ function shareTrack(trackName, artistName, albumImage, albumName, spotifyUrl, tr
         },
         body: JSON.stringify(payload)
     })
-    .then(() => {
+    .then(response => {
+        console.log('Response:', response); // Debugging statement
         alert('Track shared successfully!');
     })
     .catch(error => {
