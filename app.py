@@ -11,8 +11,8 @@ CLIENT_ID = os.getenv('CLIENT_ID')
 CLIENT_SECRET = os.getenv('CLIENT_SECRET')
 if not CLIENT_ID or not CLIENT_SECRET:
     raise ValueError("Please set the CLIENT_ID and CLIENT_SECRET environment variables.")
-# REDIRECT_URI = 'https://np-music.vercel.app/callback'
-REDIRECT_URI = 'http://127.0.0.1:5000/callback'
+REDIRECT_URI = 'https://np-music.vercel.app/callback'
+# REDIRECT_URI = 'http://127.0.0.1:5000/callback'
 SCOPE = 'user-top-read user-read-private'
 
 @app.route('/')
