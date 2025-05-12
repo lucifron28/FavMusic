@@ -15,8 +15,8 @@
     {% else %}
         <h1>Spotify Top Artists and Tracks</h1>
     {% endif %}
-    {% if not top_artists and not top_tracks %}
-        <button id="login-button" onclick="window.location.href='{{ url_for('login') }}'">Login with Spotify</button>
+    {% if not top_artists_short_term and not top_tracks_short_term %}
+        <button class="btn" id="login-button" onclick="window.location.href='{{ url_for('login') }}'">Login with Spotify</button>
     {% else %}
         <nav>
             <button onclick="showSection('artists')" class="btn">Top Artists</button>
@@ -26,34 +26,80 @@
                 <option value="medium_term" class="btn select">Last 6 months</option>
                 <option value="long_term" class="btn select">All Time</option>
             </select>
-            
         </nav>
-        <div id="artists-section">
+        
+        <div id="artists-section" class="section-content">
             <h2>Top Artists</h2>
-            <div class="flex-container">
-                {% for artist in top_artists %}
-                    <div class="item">
-                        <img src="{{ artist.images[0].url }}" alt="{{ artist.name }}">
-                        <p>{{ loop.index }}. {{ artist.name }}</p>
-                    </div>
-                {% endfor %}
+            <div id="artists-short_term" class="timeline-content">
+                <div class="flex-container">
+                    {% for artist in top_artists_short_term %}
+                        <div class="item">
+                            <img src="{{ artist.images[0].url }}" alt="{{ artist.name }}">
+                            <p>{{ loop.index }}. {{ artist.name }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="artists-medium_term" class="timeline-content" style="display: none;">
+                <div class="flex-container">
+                    {% for artist in top_artists_medium_term %}
+                        <div class="item">
+                            <img src="{{ artist.images[0].url }}" alt="{{ artist.name }}">
+                            <p>{{ loop.index }}. {{ artist.name }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="artists-long_term" class="timeline-content" style="display: none;">
+                <div class="flex-container">
+                    {% for artist in top_artists_long_term %}
+                        <div class="item">
+                            <img src="{{ artist.images[0].url }}" alt="{{ artist.name }}">
+                            <p>{{ loop.index }}. {{ artist.name }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
-        <div id="tracks-section" style="display: none;">
+        <div id="tracks-section" class="section-content" style="display: none;">
             <h2>Top Tracks</h2>
-            <div class="flex-container">
-                {% for track in top_tracks %}
-                    <div class="item">
-                        <img src="{{ track.album.images[0].url }}" alt="{{ track.name }}">
-                        <p>{{ loop.index }}. {{ track.name }} by {{ track.artists[0].name }}</p>
-                    </div>
-                {% endfor %}
+            <div id="tracks-short_term" class="timeline-content">
+                <div class="flex-container">
+                    {% for track in top_tracks_short_term %}
+                        <div class="item">
+                            <img src="{{ track.album.images[0].url }}" alt="{{ track.name }}">
+                            <p>{{ loop.index }}. {{ track.name }} by {{ track.artists[0].name }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="tracks-medium_term" class="timeline-content" style="display: none;">
+                <div class="flex-container">
+                    {% for track in top_tracks_medium_term %}
+                        <div class="item">
+                            <img src="{{ track.album.images[0].url }}" alt="{{ track.name }}">
+                            <p>{{ loop.index }}. {{ track.name }} by {{ track.artists[0].name }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="tracks-long_term" class="timeline-content" style="display: none;">
+                <div class="flex-container">
+                    {% for track in top_tracks_long_term %}
+                        <div class="item">
+                            <img src="{{ track.album.images[0].url }}" alt="{{ track.name }}">
+                            <p>{{ loop.index }}. {{ track.name }} by {{ track.artists[0].name }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     {% endif %}
+    
     <footer>
         created by <a href="https://github.com/lucifron28" target="blank_">Ron Vincent Cada</a>
     </footer>
+    
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
