@@ -23,20 +23,43 @@ def home():
             'Authorization': f'Bearer {access_token}'
         }
         print("logged in")
-        timeline = request.args.get('timeline')
-        if not timeline:
-            timeline = 'short_term'
+        top_artists_response = {}
+        top_tracks_response = {}
         user_profile_response = requests.get('https://api.spotify.com/v1/me', headers=headers)
-        top_artists_response = requests.get(f'https://api.spotify.com/v1/me/top/artists?time_range={timeline}', headers=headers)
-        top_tracks_response = requests.get(f'https://api.spotify.com/v1/me/top/tracks?time_range={timeline}', headers=headers)
+        top_artists_response["short_term"] = requests.get('https://api.spotify.com/v1/me/top/artists?time_range=short_term', headers=headers)
+        top_artists_response["medium_term"] = requests.get('https://api.spotify.com/v1/me/top/artists?time_range=medium_term', headers=headers)
+        top_artists_response["long_term"] = requests.get('https://api.spotify.com/v1/me/top/artists?time_range=long_term', headers=headers)
+        top_tracks_response["short_term"] = requests.get('https://api.spotify.com/v1/me/top/tracks?time_range=short_term', headers=headers)
+        top_tracks_response["medium_term"] = requests.get('https://api.spotify.com/v1/me/top/tracks?time_range=medium_term', headers=headers)
+        top_tracks_response["long_term"] = requests.get('https://api.spotify.com/v1/me/top/tracks?time_range=long_term', headers=headers)
 
         user_profile = user_profile_response.json()
-        top_artists = top_artists_response.json().get('items', [])
-        top_tracks = top_tracks_response.json().get('items', [])
+        top_artists_short_term = top_artists_response["short_term"].json().get('items', [])
+        top_artists_medium_term = top_artists_response["medium_term"].json().get('items', [])
+        top_artists_long_term = top_artists_response["long_term"].json().get('items', [])
+        top_tracks_short_term = top_tracks_response["short_term"].json().get('items', [])
+        top_tracks_medium_term = top_tracks_response["medium_term"].json().get('items', [])
+        top_tracks_long_term = top_tracks_response["long_term"].json().get('items', [])
 
-        return render_template('index.html', user_profile=user_profile, top_artists=top_artists, top_tracks=top_tracks)
+        return render_template('index.html', 
+                                user_profile=user_profile, 
+                                top_artists_short_term=top_artists_short_term, 
+                                top_artists_medium_term=top_artists_medium_term,
+                                top_artists_long_term=top_artists_long_term,
+                                top_tracks_short_term=top_tracks_short_term,
+                                top_tracks_medium_term=top_tracks_medium_term,
+                                top_tracks_long_term=top_tracks_long_term)
     else:
-        return render_template('index.html', user_profile=None, top_artists=[], top_tracks=[])
+        return render_template('index.html', 
+                            user_profile=None, 
+                            top_artists=[], 
+                            top_tracks=[],
+                            top_artists_short_term=[], 
+                            top_artists_medium_term=[],
+                            top_artists_long_term=[],
+                            top_tracks_short_term=[],
+                            top_tracks_medium_term=[],
+                            top_tracks_long_term=[])
 
 @app.route('/login')
 def login():
