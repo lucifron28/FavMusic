@@ -11,7 +11,8 @@ CLIENT_ID = os.getenv('CLIENT_ID')
 CLIENT_SECRET = os.getenv('CLIENT_SECRET')
 if not CLIENT_ID or not CLIENT_SECRET:
     raise ValueError("Please set the CLIENT_ID and CLIENT_SECRET environment variables.")
-REDIRECT_URI = 'https://np-music.vercel.app/callback'
+# REDIRECT_URI = 'https://np-music.vercel.app/callback'
+REDIRECT_URI = 'http://127.0.0.1:5000/callback'
 SCOPE = 'user-top-read user-read-private'
 
 @app.route('/')
@@ -21,9 +22,13 @@ def home():
         headers = {
             'Authorization': f'Bearer {access_token}'
         }
+        print("logged in")
+        timeline = request.args.get('timeline')
+        if not timeline:
+            timeline = 'short_term'
         user_profile_response = requests.get('https://api.spotify.com/v1/me', headers=headers)
-        top_artists_response = requests.get('https://api.spotify.com/v1/me/top/artists?time_range=long_term', headers=headers)
-        top_tracks_response = requests.get('https://api.spotify.com/v1/me/top/tracks?time_range=long_term', headers=headers)
+        top_artists_response = requests.get(f'https://api.spotify.com/v1/me/top/artists?time_range={timeline}', headers=headers)
+        top_tracks_response = requests.get(f'https://api.spotify.com/v1/me/top/tracks?time_range={timeline}', headers=headers)
 
         user_profile = user_profile_response.json()
         top_artists = top_artists_response.json().get('items', [])
