@@ -3,7 +3,20 @@ function showSection(section) {
     document.getElementById('tracks-section').style.display = section === 'tracks' ? 'block' : 'none';
 }
 
-document.getElementById('timeline').addEventListener('change', function () {
-    const selectedTimeline = this.value;
-    window.location.href = `?timeline=${selectedTimeline}`;
-})
+function changeTimeline() {
+    const selectedTimeline = document.getElementById('timeline').value;
+    
+    const timelineContents = document.querySelectorAll('.timeline-content');
+    timelineContents.forEach(content => {
+        content.style.display = 'none';
+    });
+    
+    document.getElementById('artists-' + selectedTimeline).style.display = 'block';
+    document.getElementById('tracks-' + selectedTimeline).style.display = 'block';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    showSection('artists');
+    
+    changeTimeline();
+});
