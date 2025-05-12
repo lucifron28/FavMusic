@@ -1,12 +1,16 @@
 from flask import Flask, render_template, redirect, request, session, url_for
 import os
 import requests
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
-CLIENT_ID = '040864a3c4934163afffb8453329de95'  # Replace with your client ID
-CLIENT_SECRET = 'd273451a21784de5a03512c9f75938be'  # Replace with your client secret
+load_dotenv()
+CLIENT_ID = os.getenv('CLIENT_ID')
+CLIENT_SECRET = os.getenv('CLIENT_SECRET')
+if not CLIENT_ID or not CLIENT_SECRET:
+    raise ValueError("Please set the CLIENT_ID and CLIENT_SECRET environment variables.")
 REDIRECT_URI = 'https://np-music.vercel.app/callback'
 SCOPE = 'user-top-read user-read-private'
 
