@@ -3,15 +3,15 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start; /* Adjust to start from the top */
+    justify-content: flex-start;
     height: 100vh;
     margin: 0;
-    padding: 20px; /* Add padding to ensure content is not cut off */
+    padding: 20px;
     box-sizing: border-box;
     background-image: url('img/image.png');
     background-size: cover;
     background-repeat: no-repeat;
-    background-attachment: fixed; /* Ensure the background stays fixed */
+    background-attachment: fixed;
 }
 
 h1 {
@@ -27,6 +27,7 @@ h1 {
     font-size: 16px;
     cursor: pointer;
     border-radius: 10px;
+    background-color: antiquewhite;
 }
 
 .btn:hover {
